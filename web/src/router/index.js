@@ -7,29 +7,29 @@ Vue.use(Router)
 import Layout from '@/views/layout/Layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 /** note: Submenu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  **/
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
-* meta : {
+ * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
+ *                                if not set alwaysShow, only more than one route under the children
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noredirect           if `redirect:noredirect` will no redirect in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
     roles: ['admin','editor']     will control the page roles (you can set multiple roles)
     title: 'title'               the name show in submenu and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar,
     noCache: true                if true ,the page will no be cached(default is false)
   }
-**/
+ **/
 export const constantRouterMap = [
   {
     path: '/redirect',
@@ -75,10 +75,160 @@ export const constantRouterMap = [
       }
     ]
   },
+
+  // 用户
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'Table',
+    alwaysShow: true,
+    meta: {
+      title: '用户',
+      icon: 'user'
+    },
+    children: [
+      {
+        path: 'search',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '用户信息' }
+      }
+    ]
+  },
+
+  // 订单
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'Table',
+    alwaysShow: true,
+    meta: {
+      title: '订单',
+      icon: 'shopping'
+    },
+    children: [
+      {
+        path: 'search',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '订单信息' }
+      },
+      {
+        path: 'trace',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '订单轨迹' }
+      }
+    ]
+  },
+
+  // 还款
+  {
+    path: '/repay',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'Table',
+    alwaysShow: true,
+    meta: {
+      title: '还款',
+      icon: 'money'
+    },
+    children: [
+      {
+        path: 'search',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '还款信息' }
+      }
+    ]
+  },
+
+  // 导流平台
+  {
+    path: '/canal',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'Table',
+    alwaysShow: true,
+    meta: {
+      title: '导流平台',
+      icon: 'guide'
+    },
+    children: [
+      {
+        path: 'search',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '导流信息' }
+      }
+    ]
+  },
+
+  // 数据报表
+  {
+    path: '/report',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'Table',
+    meta: {
+      title: '数据报表',
+      icon: 'chart'
+    },
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '用户' }
+      },
+      {
+        path: 'credit',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '授信' }
+      },
+      {
+        path: 'order',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '订单' }
+      }
+    ]
+  },
+
+  // 监控告警
+  {
+    path: '/alarm',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'Table',
+    meta: {
+      title: '监控告警',
+      icon: 'bug'
+    },
+    children: [
+      {
+        path: 'manager',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '告警管理' }
+      },
+      {
+        path: 'statistic',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '事件统计' }
+      }
+    ]
+  },
+
   {
     path: '/documentation',
     component: Layout,
     redirect: '/documentation/index',
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -92,6 +242,7 @@ export const constantRouterMap = [
     path: '/guide',
     component: Layout,
     redirect: '/guide/index',
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -110,6 +261,7 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  /**
   {
     path: '/permission',
     component: Layout,
@@ -155,10 +307,9 @@ export const asyncRouterMap = [
     ]
   },
 
-  /** When your routing table is too long, you can split it into small modules**/
   componentsRouter,
   chartsRouter,
-  nestedRouter,
+  // nestedRouter,
   tableRouter,
 
   {
@@ -215,6 +366,7 @@ export const asyncRouterMap = [
       title: 'errorPages',
       icon: '404'
     },
+    hidden: true,
     children: [
       {
         path: '401',
@@ -235,6 +387,7 @@ export const asyncRouterMap = [
     path: '/error-log',
     component: Layout,
     redirect: 'noredirect',
+    hidden: true,
     children: [
       {
         path: 'log',
@@ -254,6 +407,7 @@ export const asyncRouterMap = [
       title: 'excel',
       icon: 'excel'
     },
+    hidden: true,
     children: [
       {
         path: 'export-excel',
@@ -282,6 +436,7 @@ export const asyncRouterMap = [
     redirect: '/zip/download',
     alwaysShow: true,
     meta: { title: 'zip', icon: 'zip' },
+    hidden: true,
     children: [
       {
         path: 'download',
@@ -296,6 +451,7 @@ export const asyncRouterMap = [
     path: '/theme',
     component: Layout,
     redirect: 'noredirect',
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -323,6 +479,7 @@ export const asyncRouterMap = [
   {
     path: '/i18n',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -336,6 +493,7 @@ export const asyncRouterMap = [
   {
     path: 'external-link',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'https://github.com/PanJiaChen/vue-element-admin',
@@ -343,6 +501,6 @@ export const asyncRouterMap = [
       }
     ]
   },
-
+ **/
   { path: '*', redirect: '/404', hidden: true }
 ]
