@@ -158,6 +158,11 @@ export const constantRouterMap = [
     },
     children: [
       {
+        path: 'dashboard',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '总览' }
+      }, {
         path: 'search',
         component: () => import('@/views/table/complexTable'),
         name: 'ComplexTable',
