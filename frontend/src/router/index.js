@@ -162,6 +162,12 @@ export const constantRouterMap = [
         component: () => import('@/views/table/complexTable'),
         name: 'ComplexTable',
         meta: { title: '导流记录' }
+      },
+      {
+        path: 'hours',
+        component: () => import('@/views/table/complexTable'),
+        name: 'ComplexTable',
+        meta: { title: '数据时报' }
       }
     ]
   },
