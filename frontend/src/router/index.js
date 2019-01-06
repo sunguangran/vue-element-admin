@@ -161,7 +161,7 @@ export const constantRouterMap = [
         path: 'search',
         component: () => import('@/views/table/complexTable'),
         name: 'ComplexTable',
-        meta: { title: '导流信息' }
+        meta: { title: '导流记录' }
       }
     ]
   },
